@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Django Face Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        #video-container {
+            margin: 20px auto;
+            width: 640px;
+        }
+        #video {
+            border: 3px solid #333;
+            width: 100%;
+        }
+        .controls {
+            margin: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Real-Time Face Tracking</h1>
+    <div id="video-container">
+        <img id="video" src="{% url 'video_feed' %}">
+    </div>
+    <div class="controls">
+        <button onclick="window.location.reload()">Restart</button>
+    </div>
+</body>
+</html>

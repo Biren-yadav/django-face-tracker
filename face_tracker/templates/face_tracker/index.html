@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Face Tracking Sniper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #111;
+            color: white;
+        }
+        #video-container {
+            position: relative;
+            margin: 20px auto;
+            width: 640px;
+        }
+        #video {
+            border: 3px solid #333;
+            width: 100%;
+        }
+        #trigger-btn {
+            background-color: #f00;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin: 20px;
+            box-shadow: 0 0 20px #f00;
+        }
+        #trigger-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 10px #f00;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sniper Face Tracker</h1>
+    <div id="video-container">
+        <img id="video" src="{% url 'video_feed' %}">
+    </div>
+    <button id="trigger-btn" onclick="fireBullet()">FIRE</button>
+
+    <script>
+        function fireBullet() {
+            fetch('/trigger/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Bullet fired:', data);
+            });
+            
+            // Visual feedback
+            const btn = document.getElementById('trigger-btn');
+            btn.style.boxShadow = '0 0 40px #ff0';
+            setTimeout(() => {
+                btn.style.boxShadow = '0 0 20px #f00';
+            }, 200);
+        }
+    </script>
+</body>
+</html>
